@@ -25,5 +25,13 @@ object s3Mini
 	}
 	
 	method bateria() = bateria
+	
+	method abrirApp(aplicacion)
+	{
+		aplicaciones.add(aplicacion)
+	}
+	method cantidadAppsAbiertas() {
+		return aplicaciones.size() 
+	}
 
 }

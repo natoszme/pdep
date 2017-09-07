@@ -1,7 +1,27 @@
 import model.celular.*
+import model.apps.*
+
+//se agrega el import para poder usar las apps
+
 
 describe "Test para el s3Mini"
 {
+	method seAbreWhatsapp()
+	{
+		s3Mini.abrirApp(whatsapp)
+	}
+	
+	method noSeTienenAppsCorriendo()
+	{
+		assert.equals(0, s3Mini.cantidadAppsAbiertas())
+	}
+	
+	//vale poner un assert en un method?
+	method seTieneUnaAppCorriendo()
+	{
+		assert.equals(1, s3Mini.cantidadAppsAbiertas())
+	}
+	
 	test "Inicialmente, tiene 1000 mb de ram disponibles"
 	{
 		assert.equals(1000, s3Mini.ramLibre())
@@ -12,4 +32,25 @@ describe "Test para el s3Mini"
 		s3Mini.usarPor(10)
 		assert.equals(40, s3Mini.bateria())	
 	}
+	
+	test "Se agrega whatsapp a las aplicaciones (se comienza a usar)"
+	{
+		self.noSeTienenAppsCorriendo()
+		self.seAbreWhatsapp()
+		self.seTieneUnaAppCorriendo()
+	}
+	
+	//hay que validar que no se agreguen repetidor en un set?
+	test "Se agrega whatsapp, estando ya abierta, y no se agrega a la lista"
+	{
+		self.noSeTienenAppsCorriendo()
+		self.seAbreWhatsapp()
+		self.seAbreWhatsapp()
+		self.seTieneUnaAppCorriendo()
+	}
+	
+	/*method whatsappConDosConversacionesYReproductorCon30()
+	{
+		
+	}*/
 }
