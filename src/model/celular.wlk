@@ -8,17 +8,21 @@ object s3Mini
 	method ramLibre()
 	{
 		var ramOcupada = aplicaciones.sum({aplicacion => aplicacion.ramOcupada()}) 
-		if (ramOcupada > 1000)
+		if (ramOcupada > ramOriginal)
 		{
-			self.error("No se dispone de suficiente memoria para ejecutar todas las aplicaciones actuales")	
+			self.error("No se dispone de suficiente memoria para ejecutar todas las aplicaciones")	
 		}
-		return 1000 - ramOcupada 
+		return ramOriginal - ramOcupada 
 	}
 	
 	method usarPor(tiempo)
 	{
-		//excepcion  de bateria
-		bateria -= aplicaciones.sum({aplicacion => aplicacion.bateriaPorMinuto()})
+		var bateriaUsada = aplicaciones.sum({aplicacion => aplicacion.bateriaPorMinuto()})
+		if (bateriaUsada > bateria)
+		{
+			self.error("El telefono no tiene la batería suficiente")
+		}
+		bateria -= bateriaUsada
 	}
 
 }
