@@ -22,6 +22,14 @@ describe "Test para el s3Mini"
 		assert.equals(1, s3Mini.cantidadAppsAbiertas())
 	}
 	
+	method whatsappCon2ConversacionesYReproductorCon30Canciones()
+	{
+		whatsapp.conversacionesActuales(2)
+		reproductorMusica.cantidadCanciones(30)
+		s3Mini.abrirApp(whatsapp)
+		s3Mini.abrirApp(reproductorMusica)
+	}
+	
 	test "Inicialmente, tiene 1000 mb de ram disponibles"
 	{
 		assert.equals(1000, s3Mini.ramLibre())
@@ -49,8 +57,38 @@ describe "Test para el s3Mini"
 		self.seTieneUnaAppCorriendo()
 	}
 	
-	/*method whatsappConDosConversacionesYReproductorCon30()
+	test "whatsapp con 2 conversaciones y reproductor con 30 canciones tiene 900mb libres"
 	{
-		
-	}*/
+		self.whatsappCon2ConversacionesYReproductorCon30Canciones()
+		assert.equals(900, s3Mini.ramLibre())	
+	}
+	
+	test "solo con la calculadora abierta, tiene 900 mb libres"
+	{
+		s3Mini.abrirApp(calculadora)
+		assert.equals(990, s3Mini.ramLibre())
+	}
+	
+	test "whatsapp con 2 conversaciones y reproductor con 30 canciones tiene 36% de bateria, al usarse un minuto"
+	{
+		self.whatsappCon2ConversacionesYReproductorCon30Canciones()
+		s3Mini.usarPor(1)
+		assert.equals(36, s3Mini.bateria())
+	}
+	
+	test "solo con la calculadora abierta, tiene 40 de bateria"
+	{
+		s3Mini.abrirApp(calculadora)
+		s3Mini.usarPor(3)
+		assert.equals(40, s3Mini.bateria())
+	}
+	
+	test "intento el usar el celular con 0% de bateria, muestra error al intentar usarlo 1 minuto con alguna app que consuma"
+	{
+		s3Mini.bateria(0)
+		whatsapp.conversacionesActuales(2)
+		s3Mini.abrirApp(whatsapp)
+		assert.throwsExceptionWithMessage("El telefono no tiene la batería suficiente", {s3Mini.usarPor(1)})
+	}
+	
 }

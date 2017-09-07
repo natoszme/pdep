@@ -2,7 +2,7 @@ object s3Mini
 {
 	var ramOriginal = 1000
 	var aplicaciones = #{}
-	var bateria = 40 
+	var bateria = 40
 	
 	method ramLibre()
 	{
@@ -16,7 +16,7 @@ object s3Mini
 	
 	method usarPor(tiempo)
 	{
-		var bateriaUsada = aplicaciones.sum({aplicacion => aplicacion.bateriaPorMinuto()})
+		var bateriaUsada = aplicaciones.sum({aplicacion => aplicacion.bateriaPorMinuto() * tiempo})
 		if (bateriaUsada > bateria)
 		{
 			self.error("El telefono no tiene la batería suficiente")
@@ -26,10 +26,16 @@ object s3Mini
 	
 	method bateria() = bateria
 	
+	method bateria(porcentajeBateria)
+	{
+		bateria = porcentajeBateria
+	}
+	
 	method abrirApp(aplicacion)
 	{
 		aplicaciones.add(aplicacion)
 	}
+	
 	method cantidadAppsAbiertas() {
 		return aplicaciones.size() 
 	}
