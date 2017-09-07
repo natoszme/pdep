@@ -1,0 +1,55 @@
+import model.apps.*
+
+//Usar el describe y el fixture
+
+test "La ram ocupada por whatsapp inicialmente es 40" {
+
+	assert.equals(40,whatsapp.ramOcupada())
+
+}
+
+test "Con 2 aplicaciones whatsapp ocupa 50mb"{
+	whatsapp.conversacionesActuales(2) 
+	assert.equals(50,whatsapp.ramOcupada())
+	new Boolean()
+}
+
+test "La bateria gastada inicialmente es 0"{
+	
+	assert.equals(0,whatsapp.bateriaPorMinuto())
+}
+
+
+
+test "La ram ocupada por el reproductor inicialmente es 0" {
+
+	assert.equals(0,reproductorMusica.ramOcupada())
+
+}
+
+test "Con 2 canciones el reproductor ocupa 4"{
+	reproductorMusica.cantidadCanciones(2) 
+	assert.equals(2*2,reproductorMusica.ramOcupada())
+}
+test "Con 25 canciones el reproductor ocupa 50"{
+	reproductorMusica.cantidadCanciones(25) 
+	assert.equals(50,reproductorMusica.ramOcupada())
+}
+test "Con 100 canciones el reproductor ocupa 50"{
+	reproductorMusica.cantidadCanciones(100) 
+	assert.equals(50,reproductorMusica.ramOcupada())
+}
+test "La bateria gastada inicialmente por el reproductor es 2"{
+	
+	assert.equals(2,reproductorMusica.bateriaPorMinuto())
+}
+
+
+test "La calculadora ocupa 10 de ram inicialmente"{
+	
+	assert.equals(10,calculadora.ramOcupada())
+}
+test "La bateria gastada por la calculadora es 0"{
+	
+	assert.equals(0,calculadora.bateriaPorMinuto())
+}
