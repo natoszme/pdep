@@ -4,7 +4,6 @@ object s3Mini
 	var aplicaciones = #{}
 	var bateria = 40 
 	
-	
 	method ramLibre()
 	{
 		var ramOcupada = aplicaciones.sum({aplicacion => aplicacion.ramOcupada()}) 
@@ -24,5 +23,7 @@ object s3Mini
 		}
 		bateria -= bateriaUsada
 	}
+	
+	method bateria() = bateria
 
 }

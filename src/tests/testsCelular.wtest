@@ -1,0 +1,15 @@
+import model.celular.*
+
+describe "Test para el s3Mini"
+{
+	test "Inicialmente, tiene 1000 mb de ram disponibles"
+	{
+		assert.equals(1000, s3Mini.ramLibre())
+	}
+	
+	test "Se usa el celular por 10 minutos y la bateria sigue en 40 (como estaba originalmente)"
+	{
+		s3Mini.usarPor(10)
+		assert.equals(40, s3Mini.bateria())	
+	}
+}
