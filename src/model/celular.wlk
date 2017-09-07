@@ -7,8 +7,12 @@ object s3Mini
 	
 	method ramLibre()
 	{
-		//excepcion de ram 
-		return 1000 - aplicaciones.sum({aplicacion => aplicacion.ramOcupada()}) 
+		var ramOcupada = aplicaciones.sum({aplicacion => aplicacion.ramOcupada()}) 
+		if (ramOcupada > 1000)
+		{
+			self.error("No se dispone de suficiente memoria para ejecutar todas las aplicaciones actuales")	
+		}
+		return 1000 - ramOcupada 
 	}
 	
 	method usarPor(tiempo)
